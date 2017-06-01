@@ -1,0 +1,8 @@
+Host *
+    ControlMaster auto
+    ControlPath /tmp/%r@%h:%p.sock
+    ControlPersist 8h
+    ServerAliveInterval 3
+    ServerAliveCountMax 10
+    ConnectTimeout 30
+    Compression yes
