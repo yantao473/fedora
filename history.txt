@@ -21,8 +21,8 @@ chown yanqing4:yanqing4 /data{0,1}
 dnf --nogpgcheck update -y
 
 # install base tools
-dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make
-ibus-table-chinese-wubi-jidian.noarch 
+dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make ibus-table-chinese-wubi-jidian  httpd mariadb-server mariadb-devel php php-mbstring php-pear composer
+
 
 # install virtus check
 dnf -y install clamtk clamav clamav-update && freshclam
