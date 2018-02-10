@@ -1,0 +1,90 @@
+[ /usr/share/nvim 22:59:24 ] # pip3 install neovim
+WARNING: Running pip install with root privileges is generally not a good idea. Try `pip install --user` instead.
+Collecting neovim
+  Downloading neovim-0.2.1.tar.gz
+Collecting msgpack>=0.5.0 (from neovim)
+  Downloading msgpack-0.5.4-cp27-cp27mu-manylinux1_x86_64.whl (300kB)
+    100% |████████████████████████████████| 307kB 6.5kB/s 
+Collecting trollius (from neovim)
+  Downloading trollius-2.1.tar.gz (276kB)
+    100% |████████████████████████████████| 276kB 9.0kB/s 
+Collecting greenlet (from neovim)
+  Downloading greenlet-0.4.13-cp27-cp27mu-manylinux1_x86_64.whl (41kB)
+    100% |████████████████████████████████| 51kB 20kB/s 
+Collecting six (from trollius->neovim)
+  Downloading six-1.11.0-py2.py3-none-any.whl
+Collecting futures (from trollius->neovim)
+  Downloading futures-3.2.0-py2-none-any.whl
+Installing collected packages: msgpack, six, futures, trollius, greenlet, neovim
+  Running setup.py install for trollius ... done
+  Running setup.py install for neovim ... done
+Successfully installed futures-3.2.0 greenlet-0.4.13 msgpack-0.5.4 neovim-0.2.1 six-1.11.0 trollius-2.1
+
+
+[ ~ 23:21:01 ] # pip3 install jedi
+WARNING: Running pip install with root privileges is generally not a good idea. Try `pip3 install --user` instead.
+Collecting jedi
+  Downloading jedi-0.11.1-py2.py3-none-any.whl (250kB)
+    100% |████████████████████████████████| 256kB 13kB/s 
+Collecting parso==0.1.1 (from jedi)
+  Downloading parso-0.1.1-py2.py3-none-any.whl (91kB)
+    100% |████████████████████████████████| 92kB 22kB/s 
+Installing collected packages: parso, jedi
+Successfully installed jedi-0.11.1 parso-0.1.1
+
+
+
+[ /home/yanqing4 23:25:33 ] # pip3 install autopep8 flake8 ipython isort
+WARNING: Running pip install with root privileges is generally not a good idea. Try `pip3 install --user` instead.
+Collecting autopep8
+  Downloading autopep8-1.3.4.tar.gz (109kB)
+    100% |████████████████████████████████| 112kB 68kB/s 
+Collecting flake8
+  Downloading flake8-3.5.0-py2.py3-none-any.whl (69kB)
+    100% |████████████████████████████████| 71kB 117kB/s 
+Collecting ipython
+  Downloading ipython-6.2.1-py3-none-any.whl (745kB)
+    100% |████████████████████████████████| 747kB 313kB/s 
+Collecting isort
+  Downloading isort-4.3.3-py3-none-any.whl (45kB)
+    100% |████████████████████████████████| 51kB 526kB/s 
+Collecting pycodestyle>=2.3 (from autopep8)
+  Downloading pycodestyle-2.3.1-py2.py3-none-any.whl (45kB)
+    100% |████████████████████████████████| 51kB 631kB/s 
+Collecting pyflakes<1.7.0,>=1.5.0 (from flake8)
+  Downloading pyflakes-1.6.0-py2.py3-none-any.whl (227kB)
+    100% |████████████████████████████████| 235kB 382kB/s 
+Collecting mccabe<0.7.0,>=0.6.0 (from flake8)
+  Downloading mccabe-0.6.1-py2.py3-none-any.whl
+Collecting pygments (from ipython)
+  Downloading Pygments-2.2.0-py2.py3-none-any.whl (841kB)
+    100% |████████████████████████████████| 849kB 509kB/s 
+Collecting simplegeneric>0.8 (from ipython)
+  Downloading simplegeneric-0.8.1.zip
+Collecting pexpect; sys_platform != "win32" (from ipython)
+  Downloading pexpect-4.4.0-py2.py3-none-any.whl (56kB)
+    100% |████████████████████████████████| 61kB 797kB/s 
+Collecting traitlets>=4.2 (from ipython)
+  Downloading traitlets-4.3.2-py2.py3-none-any.whl (74kB)
+    100% |████████████████████████████████| 81kB 867kB/s 
+Collecting pickleshare (from ipython)
+  Downloading pickleshare-0.7.4-py2.py3-none-any.whl
+Collecting prompt-toolkit<2.0.0,>=1.0.4 (from ipython)
+  Downloading prompt_toolkit-1.0.15-py3-none-any.whl (247kB)
+    100% |████████████████████████████████| 256kB 716kB/s 
+Requirement already satisfied: jedi>=0.10 in /usr/local/lib/python3.6/site-packages (from ipython)
+Requirement already satisfied: decorator in /usr/lib/python3.6/site-packages (from ipython)
+Requirement already satisfied: setuptools>=18.5 in /usr/lib/python3.6/site-packages (from ipython)
+Collecting ptyprocess>=0.5 (from pexpect; sys_platform != "win32"->ipython)
+  Downloading ptyprocess-0.5.2-py2.py3-none-any.whl
+Collecting ipython-genutils (from traitlets>=4.2->ipython)
+  Downloading ipython_genutils-0.2.0-py2.py3-none-any.whl
+Requirement already satisfied: six in /usr/lib/python3.6/site-packages (from traitlets>=4.2->ipython)
+Collecting wcwidth (from prompt-toolkit<2.0.0,>=1.0.4->ipython)
+  Downloading wcwidth-0.1.7-py2.py3-none-any.whl
+Requirement already satisfied: parso==0.1.1 in /usr/local/lib/python3.6/site-packages (from jedi>=0.10->ipython)
+Installing collected packages: pycodestyle, autopep8, pyflakes, mccabe, flake8, pygments, simplegeneric, ptyprocess, pexpect, ipython-genutils, traitlets, pickleshare, wcwidth, prompt-toolkit, ipython, isort
+  Running setup.py install for autopep8 ... done
+  Running setup.py install for simplegeneric ... done
+Successfully installed autopep8-1.3.4 flake8-3.5.0 ipython-6.2.1 ipython-genutils-0.2.0 isort-4.3.3 mccabe-0.6.1 pexpect-4.4.0 pickleshare-0.7.4 prompt-toolkit-1.0.15 ptyprocess-0.5.2 pycodestyle-2.3.1 pyflakes-1.6.0 pygments-2.2.0 simplegeneric-0.8.1 traitlets-4.3.2 wcwidth-0.1.7
+

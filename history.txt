@@ -11,8 +11,18 @@ pip3 list > pip3_ori.txt
 
 # uninstall some software use gnome-software
 
+# change boot order
+vi /boot/grub2/grubenv 
+
+# change right
+chown yanqing4:yanqing4 /data{0,1}
+
+# update system
+dnf --nogpgcheck update -y
+
 # install base tools
-dnf install vim gcc gcc-c++ make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make -y
+dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make
+ibus-table-chinese-wubi-jidian.noarch 
 
 # install virtus check
 dnf -y install clamtk clamav clamav-update && freshclam
@@ -21,6 +31,9 @@ dnf -y install clamtk clamav clamav-update && freshclam
 dnf -y --nogpgcheck install gstreamer-plugins-base gstreamer1-plugins-base gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer1-plugins-ugly gstreamer-plugins-good-extras gstreamer1-plugins-good-extras gstreamer1-plugins-bad-freeworld ffmpeg gstreamer-ffmpeg
 
 # download wps and install wps need cp windows fonts to /usr/share/fonts/winxxx
+mkdir /usr/share/fonts/win7
+cp -pr /run/media/yanqing4/OS/Windows/Fonts/*.ttf .
+cp -pr /run/media/yanqing4/OS/Windows/Fonts/*.TTF .
 rpm -ivh wps-office-10.1.0.5672-1.a21.x86_64.rpm 
 
 # proxy
@@ -35,11 +48,21 @@ systemctl start privoxy
 export http_proxy='http://127.0.0.1:8118'
 export https_proxy='http://127.0.0.1:8118'
 
-# install chrome
+# install chrome rember add google repo
 dnf install google-chrome-stable -y
 set | grep https
 unset http_proxy && unset https_proxy && systemctl stop privoxy.service
 set | grep https
 
-# update system
-dnf --nogpgcheck update -y
+# config nvim
+mkdir /usr/share/fonts/powerline_fonts && cp -r ~/sw/linux_vim/DejaVuSansMono /usr/share/fonts/powerline_fonts
+cp  ~/sw/linux_vim/sysinit.vim  /usr/share/nvim/
+
+# fonts config
+cd /usr/share/fonts
+mkfontscale 
+mkfontdir
+fc-cache -fv
+
+cp /root/.fzf.bash  /home/yanqing4/ && chown yanqing4:yanqing4 ~/.fzf.bash
+# add [ -f ~/.fzf.bash ] && source ~/.fzf.bash to ~/.bahrc
