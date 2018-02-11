@@ -28,7 +28,7 @@ rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-*
 dnf update -y
 
 # install base tools
-dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make ibus-table-chinese-wubi-jidian  httpd mariadb-server mariadb-devel php php-mbstring php-pear php-gd composer
+dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make ibus-table-chinese-wubi-jidian  httpd mariadb-server mariadb-devel php php-mbstring php-pear php-gd php-pdo php-mysqlnd composer
 
 
 # install virtus check
@@ -81,7 +81,7 @@ rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
 dnf -y install flash-plugin
 
 # 解决中文显示出现高低不平问题
-dnf  -y install wqy-bitmap-fonts wqy-unibit-fonts wqy-zenhei-fonts wqy-microhei-fonts
+dnf -y install wqy-bitmap-fonts wqy-unibit-fonts wqy-zenhei-fonts wqy-microhei-fonts
 
 # 解决启动速度慢的问题
 # systemd-analyze blame
