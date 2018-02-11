@@ -86,3 +86,12 @@ dnf -y install wqy-bitmap-fonts wqy-unibit-fonts wqy-zenhei-fonts wqy-microhei-f
 # 解决启动速度慢的问题
 # systemd-analyze blame
 systemctl mask plymouth-quit-wait.service
+
+# 解决fzf 查找速度慢的问题
+# 需要在vim中设置
+# You can use Ag with [ack.vim][] by adding the following line to your .vimrc:
+# let g:ackprg = 'ag --nogroup --nocolor --column'
+# or:
+# let g:ackprg = 'ag --vimgrep'
+# Which has the same effect but will report every match on the line.
+dnf  -y install the_silver_searcher
