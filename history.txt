@@ -17,18 +17,26 @@ vi /boot/grub2/grubenv
 # change right
 chown yanqing4:yanqing4 /data{0,1}
 
+# install rpmfusion repo
+rpm -ivh rpmfusion-free-release-27.noarch.rpm 
+rpm -ivh rpmfusion-nonfree-release-27.noarch.rpm
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-*
+
 # update system
-dnf --nogpgcheck update -y
+dnf update -y
 
 # install base tools
-dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make ibus-table-chinese-wubi-jidian  httpd mariadb-server mariadb-devel php php-mbstring php-pear composer
+dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch
+libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make
+ibus-table-chinese-wubi-jidian  httpd mariadb-server mariadb-devel php
+php-mbstring php-pear php-gd composer
 
 
 # install virtus check
 dnf -y install clamtk clamav clamav-update && freshclam
 
 # install decode for player
-dnf -y --nogpgcheck install gstreamer-plugins-base gstreamer1-plugins-base gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer1-plugins-ugly gstreamer-plugins-good-extras gstreamer1-plugins-good-extras gstreamer1-plugins-bad-freeworld ffmpeg gstreamer-ffmpeg
+dnf -y install gstreamer-plugins-base gstreamer1-plugins-base gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer1-plugins-ugly gstreamer-plugins-good-extras gstreamer1-plugins-good-extras gstreamer1-plugins-bad-freeworld ffmpeg gstreamer-ffmpeg
 
 # download wps and install wps need cp windows fonts to /usr/share/fonts/winxxx
 mkdir /usr/share/fonts/win7
@@ -66,3 +74,16 @@ fc-cache -fv
 
 cp /root/.fzf.bash  /home/yanqing4/ && chown yanqing4:yanqing4 ~/.fzf.bash
 # add [ -f ~/.fzf.bash ] && source ~/.fzf.bash to ~/.bahrc
+
+
+# add flash plugin
+rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
+dnf -y install flash-plugin
+
+# 解决中文显示出现高低不平问题
+dnf install wqy-bitmap-fonts wqy-unibit-fonts wqy-zenhei-fonts wqy-microhei-fonts
+
+# 解决启动速度慢的问题
+# systemd-analyze blame
+systemctl mask plymouth-quit-wait.service
