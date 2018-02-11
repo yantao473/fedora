@@ -29,3 +29,10 @@ mkfontdir
 fc-cache -fv
 
 4.在字体目录中会生成fonts.dir和fonts.scale文件，这表示已经安装成功了。
+
+5. git 记住用户名和密码
+vim ~/.netrc
+ine github.com
+login xxx
+password xxx
+
