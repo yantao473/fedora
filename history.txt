@@ -99,3 +99,5 @@ dnf  -y install the_silver_searcher
 # install eslint for vim nvim javascript syntax check
 npm install -g eslint
 
+# for javascript vim-autoformater
+ln -sf /usr/bin/eslint  /usr/local/bin/eslint
