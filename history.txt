@@ -95,3 +95,7 @@ systemctl mask plymouth-quit-wait.service
 # let g:ackprg = 'ag --vimgrep'
 # Which has the same effect but will report every match on the line.
 dnf  -y install the_silver_searcher
+
+# install eslint for vim nvim javascript syntax check
+npm install -g eslint
+
