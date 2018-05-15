@@ -28,7 +28,7 @@ rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-*
 dnf update -y
 
 # install base tools
-dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool.noarch libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang gcc gcc-c++ make ibus-table-chinese-wubi-jidian  httpd mariadb-server mariadb-devel php php-mbstring php-pear php-gd php-pdo php-mysqlnd composer
+dnf -y install vim gcc gcc-c++ ctags clang make gnome-tweak-tool libpng12 libGLU  privoxy fasd neovim tmux nodejs ctags golang ibus-table-chinese-wubi-jidian  httpd mariadb-server mariadb-devel php php-mbstring php-pear php-gd php-pdo php-mysqlnd composer
 
 
 # install virtus check
@@ -93,7 +93,9 @@ systemctl mask plymouth-quit-wait.service
 # let g:ackprg = 'ag --nogroup --nocolor --column'
 # or:
 # let g:ackprg = 'ag --vimgrep'
+
 # Which has the same effect but will report every match on the line.
+# for fzf searcher
 dnf  -y install the_silver_searcher
 
 # install eslint for vim nvim javascript syntax check
@@ -101,3 +103,6 @@ npm install -g eslint
 
 # for javascript vim-autoformater
 ln -sf /usr/bin/eslint  /usr/local/bin/eslint
+
+# for use mkpasswd command
+dnf -y install expect
