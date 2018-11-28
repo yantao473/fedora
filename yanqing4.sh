@@ -4,16 +4,21 @@ export PATH=$PATH:/home/yanqing4/bin
 
 if [ -n "$BASH_VERSION" ]
 then
-    export PS1="[\$(git_branch) \[\e[1;32m\]\w \t\[\e[m\] ] \\$ "
+    export PS1="[\$(git_branch)\[\e[1;32m\]\w \t\[\e[m\] ] \\$ "
     # export PS1="[\$(git_branch) \[\e[1;32m\]\W \t \#\[\e[m\] ] \\$ "
 elif [ -n "$ZSH_VERSION" ]
 then
-    if [ "$UID" -eq 0 ]; then
-        export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %# "
-    else
-        export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %% "
-    fi
-    export RPROMPT="%F{red}%(?..%?)%f"
+	# for change terminal title
+	function precmd () {
+		echo -ne "\033]0;${PWD##*/}\007"
+	}
+
+	if [ "$UID" -eq 0 ]; then
+		export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %# "
+	else
+		export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %% "
+	fi
+	export RPROMPT="%F{red}%(?..%?)%f"
 fi
 
 alias g='grep --color=auto'
@@ -64,7 +69,10 @@ git_branch()
 {
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [ "x${branch}x" != "xx" ]
-        echo -e "\033[33;1m($branch)\033[0m"
+    then
+        echo -ne "\033[33;1m($branch)\033[0m "
+    else
+        echo -n ""
     fi
 }
 
