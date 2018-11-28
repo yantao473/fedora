@@ -1,7 +1,20 @@
 #!/bin/sh
 
 export PATH=$PATH:/home/yanqing4/bin
-export PS1="[\$(git_branch) \[\e[1;32m\]\w \t\[\e[m\] ] \\$ "
+
+if [ -n "$BASH_VERSION" ]
+then
+    export PS1="[\$(git_branch) \[\e[1;32m\]\w \t\[\e[m\] ] \\$ "
+    # export PS1="[\$(git_branch) \[\e[1;32m\]\W \t \#\[\e[m\] ] \\$ "
+elif [ -n "$ZSH_VERSION" ]
+then
+    if [ "$UID" -eq 0 ]; then
+        export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %# "
+    else
+        export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %% "
+    fi
+    export RPROMPT="%F{red}%(?..%?)%f"
+fi
 
 alias g='grep --color=auto'
 alias p='ps axjfww'
@@ -37,33 +50,40 @@ mkcd()
     cd $1
 }
 
+vun()
+{
+    cd /usr/share/vim/vimfiles/plug/$1
+}
+
+jdk()
+{
+    cd /usr/java/jdk1.8.0_121
+}
+
 git_branch()
 {
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    if [ "$branch" = "" ]
-    then
-        echo ""
-    else
-        echo -e " \033[33;1m($branch)\033[0m"
+    if [ "x${branch}x" != "xx" ]
+        echo -e "\033[33;1m($branch)\033[0m"
     fi
 }
 
-saeput() {                                                                                              
-    for i in "$@"                                                                                        
+saeput() {
+    for i in "$@"
     do
-        CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')                                                            
+        CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
         rsync --progress "$i" sae.rsync.sae.sina.com.cn::sae/ \
             && printf "${GRE}OK $i\t$CURTIME\n$NOR" \
-            || printf "${RED}Failed $i\t$CURTIME\n$NOR"                                                  
-    done    
-}   
+            || printf "${RED}Failed $i\t$CURTIME\n$NOR"
+    done
+}
 
-saeget() {                                                                                              
-    ARGS=$#                                                                                              
-    CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')                                                                
+saeget() {
+    ARGS=$#
+    CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
 
-    if [ $ARGS -eq 1 ]                                                                                   
-    then 
+    if [ $ARGS -eq 1 ]
+    then
         rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" . \
             && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
             || printf "${RED}Failed $1\t$CURTIME\n$NOR"
@@ -92,4 +112,9 @@ saeget() {
 }
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
-export HISTIGNORE="myss:bearychat:y:pwd:ls:cd:ll:clear:history"
+export HISTIGNORE="y:pwd:ls:cd:ll:clear:history"
+
+# for java
+#export JAVA_HOME=/usr/java/jdk1.8.0_121
+#export PATH=$JAVA_HOME/bin:$PATH
+#export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
