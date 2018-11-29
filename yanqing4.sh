@@ -1,6 +1,17 @@
-#!/bin/sh
+#!/bin/zsh
 
 export PATH=$PATH:/home/yanqing4/bin
+
+git_branch()
+{
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [ "x${branch}x" != "xx" ]
+    then
+        echo -e " \033[33;1m($branch)\033[0m"
+    else
+        echo ""
+    fi
+}
 
 if [ -n "$BASH_VERSION" ]
 then
@@ -8,18 +19,22 @@ then
     # export PS1="[\$(git_branch) \[\e[1;32m\]\W \t \#\[\e[m\] ] \\$ "
 elif [ -n "$ZSH_VERSION" ]
 then
-	# for change terminal title
-	function precmd () {
-		echo -ne "\033]0;${PWD##*/}\007"
-	}
+    set_prompt() {
+        if [ "$UID" -eq 0 ]
+        then
+            PROMPT="[%F{135}%n%f %F{166}%*%f$(git_branch)] %F{118}%1~%f %# "
+        else
+            PROMPT="[%F{135}%n%f %F{166}%*%f$(git_branch)] %F{118}%1~%f $ "
+        fi
+    }
 
-	if [ "$UID" -eq 0 ]; then
-		export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %# "
-	else
-		export PROMPT="[%F{135}%n%f %F{166}%*%f] %F{118}%1~%f %% "
-	fi
-	export RPROMPT="%F{red}%(?..%?)%f"
+    precmd_functions+=set_prompt
+    set_prompt
+
+    export RPROMPT="%F{red}%(?..%?)%f"
 fi
+
+setopt hist_ignore_all_dups
 
 alias g='grep --color=auto'
 alias p='ps axjfww'
@@ -63,17 +78,6 @@ vun()
 jdk()
 {
     cd /usr/java/jdk1.8.0_121
-}
-
-git_branch()
-{
-    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    if [ "x${branch}x" != "xx" ]
-    then
-        echo -ne "\033[33;1m($branch)\033[0m "
-    else
-        echo -n ""
-    fi
 }
 
 saeput() {
