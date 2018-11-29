@@ -18,7 +18,6 @@ then
     export PS1="[\$(git_branch) \[\e[1;32m\]\W \t\[\e[m\]] \\$ "
 elif [ -n "$ZSH_VERSION" ]
 then
-    setopt prompt_subst
     set_prompt() {
         if [ "$UID" -eq 0 ]
         then
@@ -28,7 +27,8 @@ then
         fi
     }
 
-    precmd_functions+=set_prompt
+    precmd_functions+=(set_prompt)
+    # chpwd_functions+=(set_prompt)
     set_prompt
 
     export RPROMPT="%F{red}%(?..%?)%f"
