@@ -19,6 +19,10 @@ then
 elif [ -n "$ZSH_VERSION" ]
 then
     set_prompt() {
+        # set terminal tab title
+        window_title="\033]0;${PWD##*/}\007"
+        echo -ne "$window_title"
+
         if [ "$UID" -eq 0 ]
         then
             PROMPT="[%F{135}%n%f %F{166}%*%f$(git_branch)] %F{118}%1~%f %# "
