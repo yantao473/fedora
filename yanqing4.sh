@@ -15,10 +15,10 @@ git_branch()
 
 if [ -n "$BASH_VERSION" ]
 then
-    export PS1="[\$(git_branch)\[\e[1;32m\]\w \t\[\e[m\] ] \\$ "
-    # export PS1="[\$(git_branch) \[\e[1;32m\]\W \t \#\[\e[m\] ] \\$ "
+    export PS1="[\$(git_branch) \[\e[1;32m\]\W \t\[\e[m\]] \\$ "
 elif [ -n "$ZSH_VERSION" ]
 then
+    setopt prompt_subst
     set_prompt() {
         if [ "$UID" -eq 0 ]
         then
@@ -34,7 +34,6 @@ then
     export RPROMPT="%F{red}%(?..%?)%f"
 fi
 
-setopt hist_ignore_all_dups
 
 alias g='grep --color=auto'
 alias p='ps axjfww'
