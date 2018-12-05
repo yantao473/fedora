@@ -20,8 +20,8 @@ elif [ -n "$ZSH_VERSION" ]
 then
     set_prompt() {
         # set terminal tab title
-        window_title="\033]0;${PWD##*/}\007"
-        echo -ne "$window_title"
+        # window_title="\033]0;${PWD##*/}\007"
+        # echo -ne "$window_title"
 
         if [ "$UID" -eq 0 ]
         then
@@ -36,6 +36,11 @@ then
     set_prompt
 
     export RPROMPT="%F{red}%(?..%?)%f"
+    setopt HIST_IGNORE_ALL_DUPS
+    setopt HIST_IGNORE_SPACE
+    HISTFILE=~/.zhistory
+    HISTSIZE=5000
+    SAVEHIST=5000
 fi
 
 
