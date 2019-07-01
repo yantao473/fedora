@@ -38,6 +38,8 @@ then
     export RPROMPT="%F{red}%(?..%?)%f"
     setopt HIST_IGNORE_ALL_DUPS
     setopt HIST_IGNORE_SPACE
+    [ -f ~/sw/z.sh ] && source ~/sw/z.sh
+    [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
     HISTFILE=~/.zhistory
     HISTSIZE=5000
     SAVEHIST=5000
@@ -56,85 +58,56 @@ YEL="${ESC}33m"
 RED="${ESC}31m"
 NOR="${ESC}0m"
 
+# saeput() {
+#     for i in "$@"
+#     do
+#         CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
+#         rsync --progress "$i" sae.rsync.sae.sina.com.cn::sae/ \
+#             && printf "${GRE}OK $i\t$CURTIME\n$NOR" \
+#             || printf "${RED}Failed $i\t$CURTIME\n$NOR"
+#     done
+# }
+#
+# saeget() {
+#     ARGS=$#
+#     CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
+#
+#     if [ $ARGS -eq 1 ]
+#     then
+#         rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" . \
+#             && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
+#             || printf "${RED}Failed $1\t$CURTIME\n$NOR"
+#     elif [ $ARGS -eq 2 ]
+#     then
+#         rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" $2 \
+#             && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
+#             || printf "${RED}Failed $1\t$CURTIME\n$NOR"
+#     else
+#         dest=${!ARGS}
+#         dp=$(dirname $dest)
+#
+#         if [[ -w $dest && -d $dp  ]]
+#         then
+#             for ((i=1; i < $ARGS; i++))
+#             do
+#                 CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
+#                 rsync --progress sae.rsync.sae.sina.com.cn::sae/"${!i}" $dest \
+#                     && printf "${GRE}OK ${!i}\t$CURTIME\n$NOR" \
+#                     || printf "${RED}Failed ${!i}\t$CURTIME\n$NOR"
+#             done
+#         else
+#             echo "The target not a folder"
+#         fi
+#     fi
+# }
 
-# fasd
-eval "$(fasd --init auto)"
-alias v='f -e vim'
-fasd_cd ()
-{
- if [ $# -le 1 ]; then
-     fasd "$@";
- else
-     local _fasd_ret="$(fasd -e 'printf %s' "$@")";
-     [ -z "$_fasd_ret" ] && return;
-     [ -d "$_fasd_ret" ] && printf %s\\n "$_fasd_ret" && cd "$_fasd_ret";
- fi
-}
-
-
-mkcd()
-{
-    mkdir $1
-    cd $1
-}
-
-vun()
-{
-    cd /usr/share/vim/vimfiles/plug/$1
-}
-
-jdk()
-{
-    cd /usr/java/jdk1.8.0_121
-}
-
-saeput() {
-    for i in "$@"
-    do
-        CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-        rsync --progress "$i" sae.rsync.sae.sina.com.cn::sae/ \
-            && printf "${GRE}OK $i\t$CURTIME\n$NOR" \
-            || printf "${RED}Failed $i\t$CURTIME\n$NOR"
-    done
-}
-
-saeget() {
-    ARGS=$#
-    CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-
-    if [ $ARGS -eq 1 ]
-    then
-        rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" . \
-            && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
-            || printf "${RED}Failed $1\t$CURTIME\n$NOR"
-    elif [ $ARGS -eq 2 ]
-    then
-        rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" $2 \
-            && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
-            || printf "${RED}Failed $1\t$CURTIME\n$NOR"
-    else
-        dest=${!ARGS}
-        dp=$(dirname $dest)
-
-        if [[ -w $dest && -d $dp  ]]
-        then
-            for ((i=1; i < $ARGS; i++))
-            do
-                CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-                rsync --progress sae.rsync.sae.sina.com.cn::sae/"${!i}" $dest \
-                    && printf "${GRE}OK ${!i}\t$CURTIME\n$NOR" \
-                    || printf "${RED}Failed ${!i}\t$CURTIME\n$NOR"
-            done
-        else
-            echo "The target not a folder"
-        fi
-    fi
-}
-
-export FZF_DEFAULT_COMMAND='ag -g ""'
+# for fzf need install ripgrep
+export FZF_DEFAULT_COMMAND='rg --files --smart-case --no-ignore --hidden --follow --glob "!{.git,.svn,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="rg --sort-files --files --null 2> /dev/null | xargs -0 dirname | uniq"
 export HISTIGNORE="y:pwd:ls:cd:ll:clear:history"
 
 # for java
-#export JAVA_HOME=/usr/java/jdk1.8.0_121
-#export PATH=$JAVA_HOME/bin:$PATH
-#export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+# export JAVA_HOME=/usr/java/jdk1.8.0_121
+# export PATH=$JAVA_HOME/bin:$PATH
+# export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
