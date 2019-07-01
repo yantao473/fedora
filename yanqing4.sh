@@ -58,6 +58,7 @@ YEL="${ESC}33m"
 RED="${ESC}31m"
 NOR="${ESC}0m"
 
+<<<<<<< HEAD
 # saeput() {
 #     for i in "$@"
 #     do
@@ -100,6 +101,82 @@ NOR="${ESC}0m"
 #         fi
 #     fi
 # }
+=======
+
+# fasd
+eval "$(fasd --init auto)"
+alias v='f -e vim'
+fasd_cd ()
+{
+ if [ $# -le 1 ]; then
+     fasd "$@";
+ else
+     local _fasd_ret="$(fasd -e 'printf %s' "$@")";
+     [ -z "$_fasd_ret" ] && return;
+     [ -d "$_fasd_ret" ] && printf %s\\n "$_fasd_ret" && cd "$_fasd_ret";
+ fi
+}
+
+
+mkcd()
+{
+    mkdir $1
+    cd $1
+}
+
+vun()
+{
+    cd /usr/share/vim/vimfiles/plug/$1
+}
+
+jdk()
+{
+    cd /usr/java/jdk1.8.0_121
+}
+
+saeput() {
+    for i in "$@"
+    do
+        CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
+        rsync --progress "$i" sae.rsync.sae.sina.com.cn::sae/ \
+            && printf "${GRE}OK $i\t$CURTIME\n$NOR" \
+            || printf "${RED}Failed $i\t$CURTIME\n$NOR"
+    done
+}
+
+saeget() {
+    ARGS=$#
+    CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
+
+    if [ $ARGS -eq 1 ]
+    then
+        rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" . \
+            && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
+            || printf "${RED}Failed $1\t$CURTIME\n$NOR"
+    elif [ $ARGS -eq 2 ]
+    then
+        rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" $2 \
+            && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
+            || printf "${RED}Failed $1\t$CURTIME\n$NOR"
+    else
+        dest=${!ARGS}
+        dp=$(dirname $dest)
+
+        if [[ -w $dest && -d $dp  ]]
+        then
+            for ((i=1; i < $ARGS; i++))
+            do
+                CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
+                rsync --progress sae.rsync.sae.sina.com.cn::sae/"${!i}" $dest \
+                    && printf "${GRE}OK ${!i}\t$CURTIME\n$NOR" \
+                    || printf "${RED}Failed ${!i}\t$CURTIME\n$NOR"
+            done
+        else
+            echo "The target not a folder"
+        fi
+    fi
+}
+>>>>>>> 963f9b842ab7da32cfe0f65da7c266e915ccbeb9
 
 # for fzf need install ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --smart-case --no-ignore --hidden --follow --glob "!{.git,.svn,node_modules}/*" 2> /dev/null'
