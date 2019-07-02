@@ -36,3 +36,4 @@ ine github.com
 login xxx
 password xxx
 
+6. svn 新版本禁止保存plaintext的密码需要在~/.subversion/config中配置password-stores =gnome-keyring（Gnome桌面配置gnome-keyring KDE桌面配置kwallet）,另外需要安装subversion-gnome支持
