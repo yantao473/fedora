@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 export PATH=$PATH:/home/yanqing4/bin
 
@@ -38,13 +38,12 @@ then
     export RPROMPT="%F{red}%(?..%?)%f"
     setopt HIST_IGNORE_ALL_DUPS
     setopt HIST_IGNORE_SPACE
-    [ -f ~/sw/z.sh ] && source ~/sw/z.sh
-    [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
+    # [ -f ~/sw/z.sh ] && source ~/sw/z.sh
+    # [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
     HISTFILE=~/.zhistory
     HISTSIZE=5000
     SAVEHIST=5000
 fi
-
 
 alias g='grep --color=auto'
 alias p='ps axjfww'
@@ -58,104 +57,28 @@ YEL="${ESC}33m"
 RED="${ESC}31m"
 NOR="${ESC}0m"
 
-<<<<<<< HEAD
-# saeput() {
-#     for i in "$@"
-#     do
-#         CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-#         rsync --progress "$i" sae.rsync.sae.sina.com.cn::sae/ \
-#             && printf "${GRE}OK $i\t$CURTIME\n$NOR" \
-#             || printf "${RED}Failed $i\t$CURTIME\n$NOR"
-#     done
-# }
-#
-# saeget() {
-#     ARGS=$#
-#     CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-#
-#     if [ $ARGS -eq 1 ]
-#     then
-#         rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" . \
-#             && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
-#             || printf "${RED}Failed $1\t$CURTIME\n$NOR"
-#     elif [ $ARGS -eq 2 ]
-#     then
-#         rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" $2 \
-#             && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
-#             || printf "${RED}Failed $1\t$CURTIME\n$NOR"
-#     else
-#         dest=${!ARGS}
-#         dp=$(dirname $dest)
-#
-#         if [[ -w $dest && -d $dp  ]]
-#         then
-#             for ((i=1; i < $ARGS; i++))
-#             do
-#                 CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-#                 rsync --progress sae.rsync.sae.sina.com.cn::sae/"${!i}" $dest \
-#                     && printf "${GRE}OK ${!i}\t$CURTIME\n$NOR" \
-#                     || printf "${RED}Failed ${!i}\t$CURTIME\n$NOR"
-#             done
-#         else
-#             echo "The target not a folder"
-#         fi
-#     fi
-# }
-=======
-
-# fasd
-eval "$(fasd --init auto)"
-alias v='f -e vim'
-fasd_cd ()
-{
- if [ $# -le 1 ]; then
-     fasd "$@";
- else
-     local _fasd_ret="$(fasd -e 'printf %s' "$@")";
-     [ -z "$_fasd_ret" ] && return;
-     [ -d "$_fasd_ret" ] && printf %s\\n "$_fasd_ret" && cd "$_fasd_ret";
- fi
-}
-
-
-mkcd()
-{
-    mkdir $1
-    cd $1
-}
-
-vun()
-{
-    cd /usr/share/vim/vimfiles/plug/$1
-}
-
-jdk()
-{
-    cd /usr/java/jdk1.8.0_121
-}
-
-saeput() {
+vput() {
     for i in "$@"
     do
         CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-        rsync --progress "$i" sae.rsync.sae.sina.com.cn::sae/ \
+        rsync --progress "$i" 10.73.26.132::vdisk/ \
             && printf "${GRE}OK $i\t$CURTIME\n$NOR" \
             || printf "${RED}Failed $i\t$CURTIME\n$NOR"
     done
 }
 
-saeget() {
+vget() {
     ARGS=$#
     CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
 
     if [ $ARGS -eq 1 ]
     then
-        rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" . \
+        rsync --progress 10.73.26.132::vdisk/"$1" . \
             && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
             || printf "${RED}Failed $1\t$CURTIME\n$NOR"
     elif [ $ARGS -eq 2 ]
     then
-        rsync --progress sae.rsync.sae.sina.com.cn::sae/"$1" $2 \
+        rsync --progress 10.73.26.132::vdisk/"$1" $2 \
             && printf "${GRE}OK $1\t$CURTIME\n$NOR" \
             || printf "${RED}Failed $1\t$CURTIME\n$NOR"
     else
@@ -167,7 +90,7 @@ saeget() {
             for ((i=1; i < $ARGS; i++))
             do
                 CURTIME=$(date  +'%Y-%m-%d %H:%M:%S')
-                rsync --progress sae.rsync.sae.sina.com.cn::sae/"${!i}" $dest \
+                rsync --progress 10.73.26.132::vdisk/"${!i}" $dest \
                     && printf "${GRE}OK ${!i}\t$CURTIME\n$NOR" \
                     || printf "${RED}Failed ${!i}\t$CURTIME\n$NOR"
             done
@@ -176,7 +99,7 @@ saeget() {
         fi
     fi
 }
->>>>>>> 963f9b842ab7da32cfe0f65da7c266e915ccbeb9
+
 
 # for fzf need install ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --smart-case --no-ignore --hidden --follow --glob "!{.git,.svn,node_modules}/*" 2> /dev/null'
